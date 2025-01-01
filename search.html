@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ค้นหา</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Prompt', sans-serif;
+    }
+
+    body {
+      background-color: #111;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    header {
+      background-color: #000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid #333;
+    }
+
+    header .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    header .back-button {
+      font-size: 18px;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .search-container {
+      margin: 20px 15px;
+    }
+
+    .search-container input {
+      width: 100%;
+      padding: 10px 15px;
+      border: 1px solid #444;
+      border-radius: 20px;
+      background-color: #222;
+      color: #fff;
+      font-size: 16px;
+    }
+
+    .search-suggestions {
+      display: flex;
+      gap: 10px;
+      margin: 10px 15px;
+      flex-wrap: wrap;
+    }
+
+    .search-suggestions span {
+      background-color: #333;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .search-suggestions span:hover {
+      background-color: #555;
+    }
+
+    .recent-searches h3 {
+      margin: 15px 15px 5px;
+      font-size: 16px;
+    }
+
+    .recent-searches ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 15px;
+    }
+
+    .recent-searches ul li {
+      background-color: #222;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .recent-searches ul li:hover {
+      background-color: #333;
+    }
+
+    .recommended-content h3 {
+      margin: 15px 15px 10px;
+      font-size: 16px;
+    }
+
+    .recommended-content .profiles {
+      display: flex;
+      gap: 10px;
+      padding: 0 15px;
+    }
+
+    .recommended-content .profile {
+      text-align: center;
+      color: #fff;
+    }
+
+    .recommended-content .profile img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin-bottom: 5px;
+    }
+
+    .carousel {
+      display: flex;
+      overflow-x: auto;
+      gap: 10px;
+      padding: 10px 15px;
+    }
+
+    .carousel-item {
+      min-width: 150px;
+      background-color: #222;
+      color: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .carousel-item:hover {
+      background-color: #333;
+    }
+
+    footer {
+    position: sticky;
+    bottom: 0;
+    background-color: #111;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: -6px 0;
+    height: 60px;
+    border-top: 1px solid #333;
+  }
+
+  .menu-item {
+    text-decoration: none;
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: color 0.3s ease;
+    -webkit-tap-highlight-color: transparent; /* ลบสีเน้นเมื่อคลิกในมือถือ */
+  }
+
+  .menu-item .icon {
+    font-size: 19px;
+    margin-bottom: 5px;
+    margin-top: -6px;
+  }
+
+  .menu-item.active .icon {
+    color: #8e44ad;
+  }
+
+  .menu-item:hover .icon {
+    color: #ff005c;
+  }
+
+  .add-button {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #ff5722, #ff9800);
+    box-shadow: 0 4px 8px rgba(255, 87, 34, 0.6);   color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    transform: translateY(-20%);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .add-button:hover {
+    transform: translateY(-30%) scale(1.1);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.7);
+  }
+
+  footer span {
+    font-size: 11px;
+    margin-top: -7px;
+  }
+  </style>
+</head>
+<body>
+  <header>
+    <span class="back-button" onclick="history.back()"><i class="fas fa-arrow-left"></i> กลับ</span>
+    <div class="logo">ค้นหา</div>
+  </header>
+
+  <div class="search-container">
+    <input type="text" placeholder="ค้นหา...">
+  </div>
+
+  <div class="search-suggestions">
+    <span>#เทรนด์</span>
+    <span>#ยอดนิยม</span>
+    <span>#แนะนำ</span>
+    <span>#ใหม่ล่าสุด</span>
+  </div>
+
+  <div class="recent-searches">
+    <h3>การค้นหาล่าสุด</h3>
+    <ul>
+      <li>#ดนตรี</li>
+      <li>#กีฬา</li>
+      <li>#ข่าวล่าสุด</li>
+      <li>#การศึกษา</li>
+    </ul>
+  </div>
+
+  <div class="recommended-content">
+    <h3>โปรไฟล์แนะนำ</h3>
+    <div class="profiles">
+      <div class="profile">
+        <img src="https://via.placeholder.com/60" alt="User">
+        <span>@user123</span>
+      </div>
+      <div class="profile">
+        <img src="https://via.placeholder.com/60" alt="User">
+        <span>@user456</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="carousel">
+    <div class="carousel-item">เนื้อหา 1</div>
+    <div class="carousel-item">เนื้อหา 2</div>
+    <div class="carousel-item">เนื้อหา 3</div>
+  </div>
+
+  <footer>
+  <a href="homepage.html" class="menu-item active">
+    <div class="icon">
+      <i class="fa-solid fa-house"></i>
+    </div>
+    <span>หน้าแรก</span>
+  </a>
+  <a href="search.html" class="menu-item">
+    <div class="icon">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+    <span>ค้นหา</span>
+  </a>
+  <a href="#" class="add-button">
+    <i class="fa-solid fa-circle-plus"></i>
+  </a>
+  <a href="listpage.html" class="menu-item">
+    <div class="icon">
+      <i class="fa-solid fa-comments"></i>
+    </div>
+    <span>ข้อความ</span>
+  </a>
+  <a href="#" class="menu-item">
+    <div class="icon">
+      <i class="fa-solid fa-user"></i>
+    </div>
+    <span>โปรไฟล์</span>
+  </a>
+</footer>
+</body>
+</html>

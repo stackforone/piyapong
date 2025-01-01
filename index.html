@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ล็อคอิน / สมัครสมาชิก</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Kanit', sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at center, #4b0082, #8a2be2, #da70d6);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    .container {
+      position: relative;
+      width: 90%;
+      max-width: 400px;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transform: translateY(50px);
+      animation: fadeInUp 1.5s ease-out forwards;
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .tabs button {
+      flex: 1;
+      padding: 12px;
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: color 0.3s ease, transform 0.3s ease;
+      border-radius: 5px;
+      -webkit-tap-highlight-color: transparent; /* ลบสีเน้นเมื่อคลิกในมือถือ */
+    }
+
+    .tabs button.active {
+      color: #fff;
+      background: linear-gradient(90deg, #7b1fa2, #ba68c8);
+      box-shadow: 0 5px 15px rgba(186, 104, 200, 0.6);
+    }
+
+    .tabs button:hover {
+      transform: scale(1.1);
+    }
+
+    .form-container h2 {
+      text-align: center;
+      color: #fff;
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .form-group i {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+      color: #ba68c8;
+      font-size: 18px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 45px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 15px;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+      box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.2);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-group input::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .form-group input:focus {
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 10px rgba(186, 104, 200, 0.7), inset 0 0 20px rgba(255, 255, 255, 0.4);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(90deg, #7b1fa2, #ba68c8);
+      color: #fff;
+      border: none;
+      border-radius: 15px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      -webkit-tap-highlight-color: transparent; /* ลบสีเน้นเมื่อคลิกในมือถือ */
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(186, 104, 200, 0.8);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="tabs">
+      <button id="login-tab" class="active" onclick="switchTab('login')">ล็อคอิน</button>
+      <button id="register-tab" onclick="switchTab('register')">สมัครสมาชิก</button>
+    </div>
+    <div class="form-container">
+      <div class="form-group">
+        <i class="fas fa-envelope"></i>
+        <input type="email" placeholder="กรอกอีเมลของคุณ">
+      </div>
+      <div class="form-group">
+        <i class="fas fa-lock"></i>
+        <input type="password" placeholder="กรอกรหัสผ่านของคุณ">
+      </div>
+      <button class="submit-btn">เข้าสู่ระบบ</button>
+    </div>
+  </div>
+  
+  <script>
+  // ฟังก์ชันเมื่อกดปุ่ม "เข้าสู่ระบบ"
+  document.querySelector('.submit-btn').addEventListener('click', function (event) {
+    event.preventDefault(); // ป้องกันการส่งฟอร์มจริง
+    window.location.href = 'homepage.html'; // นำผู้ใช้ไปที่ไฟล์ homepage.html
+  });
+</script>
+
+  <script>
+    function switchTab(tab) {
+      const loginTab = document.getElementById('login-tab');
+      const registerTab = document.getElementById('register-tab');
+
+      loginTab.classList.toggle('active', tab === 'login');
+      registerTab.classList.toggle('active', tab === 'register');
+    }
+  </script>
+</body>
+</html>

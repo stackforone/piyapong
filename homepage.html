@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TikTok Modern UI</title>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Prompt', sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100vh;
+      background-color: #111;
+      color: #fff;
+    }
+
+    header {
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid #333;
+    }
+
+    header .logo {
+      display: flex;
+      align-items: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    header .logo i {
+      font-size: 20px;
+      margin-right: 10px;
+    }
+
+    header .search-bar {
+      flex: 1;
+      margin: 0 15px;
+      position: relative;
+    }
+
+    header .search-bar input {
+      width: 100%;
+      padding: 8px 40px 8px 15px;
+      border: 1px solid #444;
+      border-radius: 20px;
+      background-color: #222;
+      color: #fff;
+    }
+
+    header .search-bar input:focus {
+  border-color: #8e44ad;
+  box-shadow: 0 0 8px #8e44ad;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+    header .search-bar .fa-search {
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transform: translateY(-50%);
+      color: #666;
+    }
+
+    header .user-menu {
+      display: flex;
+      align-items: center;
+    }
+
+    header .user-menu i {
+      font-size: 19px;
+      margin-left: 15px;
+      cursor: pointer;
+    }
+
+    header .user-menu i:hover {
+  color: #8e44ad;
+  transform: scale(1.2);
+  transition: all 0.3s ease;
+}
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* ให้แน่ใจว่า body ครอบคลุมเต็มหน้า */
+  overflow-y: scroll; /* บังคับการเลื่อนแนวตั้ง */
+  -webkit-overflow-scrolling: touch; /* ปรับปรุงการเลื่อนบนมือถือ */
+}
+    main {
+  flex: 1;
+  overflow-y: auto;
+  gap: 20px;
+  padding: 3px 15px 15px; /* ลดระยะห่างด้านบน */
+}
+
+.video-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 20px auto;
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: #222;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+.video-header {
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.video-header .profile {
+  display: flex;
+  align-items: center;
+}
+
+.video-header img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.video-header .username {
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.video-body {
+  position: relative;
+}
+
+.video-body video {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.play-pause-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 50px;
+  color: white;
+  opacity: 0; /* เริ่มต้นที่ซ่อน */
+  pointer-events: none; /* ป้องกันการคลิก */
+  transition: opacity 0.5s ease; /* เพิ่มการเปลี่ยนแปลงแบบลื่นไหล */
+}
+
+.play-pause-icon.show {
+  opacity: 1; /* แสดงไอคอน */
+}
+
+.video-body video:active + .play-pause-icon {
+  display: block;
+}
+
+
+
+.video-footer {
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #333;
+}
+
+.video-footer .likes {
+  font-size: 14px;
+  color: #ccc;
+}
+
+.video-header .video-title {
+  font-size: 16px; /* ลดขนาด Title */
+  color: #aaa; /* ปรับสี Title */
+  font-weight: 400; /* น้ำหนักตัวอักษร */
+  margin-top: 2px; /* เพิ่มระยะห่างจาก username */
+}
+
+.video-header .username {
+  font-size: 14px; /* ลดขนาดข้อความ */
+  color: #ccc; /* ปรับสี */
+  font-weight: 500; /* น้ำหนักตัวอักษร */
+}
+
+.video-footer .actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.video-footer .actions .action-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.video-footer .actions .action-item i {
+  font-size: 20px;
+  color: #ccc;
+}
+
+.video-footer .actions .action-item span {
+  font-size: 13px;
+  color: #ccc;
+}
+
+.video-body video {
+  outline: none; /* ลบเส้นขอบ */
+  box-shadow: none; /* ลบเงา */
+  -webkit-tap-highlight-color: transparent; /* ลบสีเน้นเมื่อคลิกในมือถือ */
+}
+
+.video-body video:focus,
+.video-body video:active {
+  outline: none;
+  box-shadow: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+    footer {
+    position: sticky;
+    bottom: 0;
+    background-color: #111;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: -6px 0;
+    height: 60px;
+    border-top: 1px solid #333;
+  }
+
+  .menu-item {
+    text-decoration: none;
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: color 0.3s ease;
+    -webkit-tap-highlight-color: transparent; /* ลบสีเน้นเมื่อคลิกในมือถือ */
+  }
+
+  .menu-item .icon {
+    font-size: 19px;
+    margin-bottom: 5px;
+    margin-top: -6px;
+    
+  }
+
+  .menu-item.active .icon {
+    color: #501AA4;
+  }
+
+  .menu-item:hover .icon {
+    color: #ff005c;
+  }
+
+  .add-button {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    transform: translateY(-20%);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .add-button:hover {
+    transform: translateY(-30%) scale(1.1);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.7);
+  }
+
+  footer span {
+    font-size: 11px;
+    margin-top: -7px;
+  }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <i class=""></i> CikIts
+    </div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search">
+      <i class="fas fa-search"></i>
+    </div>
+    <div class="user-menu">
+      <i class="fas fa-bell"></i>
+      <i class="fas fa-cog"></i>
+    </div>
+  </header>
+  
+  
+
+  <main>
+  <div class="video-container" onclick="goToVideoDetails()">
+    <div class="video-header">
+      <div class="profile">
+        <img src="https://via.placeholder.com/40" alt="Profile">
+        <div>
+          <span class="username">@user1</span>
+          <span class="video-title">ทดสอบระบบ</span>
+        </div>
+      </div>
+      <i class="fas fa-ellipsis-h"></i>
+    </div>
+    
+    <script>
+    function goToVideoDetails() {
+  window.location.href = "TikTok3.html";
+}
+    </script>
+
+    <!-- วิดีโอ -->
+    <div class="video-body">
+      <video id="video" src="https://www.w3schools.com/html/mov_bbb.mp4"></video>
+      <div class="play-pause-icon" id="playPauseIcon">
+        <i class="fas fa-play"></i>
+      </div>
+    </div>
+
+    <!-- ส่วนท้ายของวิดีโอ -->
+    <div class="video-footer">
+      <div class="actions">
+        <div class="action-item">
+          <i class="fas fa-heart"></i><span>120</span>
+        </div>
+        <div class="action-item">
+          <i class="fas fa-comment"></i><span>45</span>
+        </div>
+        <div class="action-item">
+          <i class="fas fa-share"></i><span>30</span>
+        </div>
+      </div>
+      <span class="likes">100 Likes</span>
+    </div>
+  </div>
+    <div class="video-container">
+    <!-- ส่วนหัวของวิดีโอ -->
+    <div class="video-header">
+      <div class="profile">
+        <img src="https://via.placeholder.com/40" alt="Profile">
+        <div>
+          <span class="username">@user1</span>
+          <span class="video-title">This is a video title</span>
+        </div>
+      </div>
+      <i class="fas fa-ellipsis-h"></i>
+    </div>
+
+    <!-- วิดีโอ -->
+    <div class="video-body">
+      <video id="video" src="https://www.w3schools.com/html/mov_bbb.mp4"></video>
+      <div class="play-pause-icon" id="playPauseIcon">
+        <i class="fas fa-play"></i>
+      </div>
+    </div>
+
+    <!-- ส่วนท้ายของวิดีโอ -->
+    <div class="video-footer">
+      <div class="actions">
+        <div class="action-item">
+          <i class="fas fa-heart"></i><span>120</span>
+        </div>
+        <div class="action-item">
+          <i class="fas fa-comment"></i><span>45</span>
+        </div>
+        <div class="action-item">
+          <i class="fas fa-share"></i><span>30</span>
+        </div>
+      </div>
+      <span class="likes">100 Likes</span>
+    </div>
+  </div>
+  
+  <div class="video-container">
+    <!-- ส่วนหัวของวิดีโอ -->
+    <div class="video-header">
+      <div class="profile">
+        <img src="https://via.placeholder.com/40" alt="Profile">
+        <div>
+          <span class="username">@user1</span>
+          <span class="video-title">This is a video title</span>
+        </div>
+      </div>
+      <i class="fas fa-ellipsis-h"></i>
+    </div>
+
+    <!-- วิดีโอ -->
+    <div class="video-body">
+      <video id="video" src="https://www.w3schools.com/html/mov_bbb.mp4"></video>
+      <div class="play-pause-icon" id="playPauseIcon">
+        <i class="fas fa-play"></i>
+      </div>
+    </div>
+
+    <!-- ส่วนท้ายของวิดีโอ -->
+    <div class="video-footer">
+      <div class="actions">
+        <div class="action-item">
+          <i class="fas fa-heart"></i><span>120</span>
+        </div>
+        <div class="action-item">
+          <i class="fas fa-comment"></i><span>45</span>
+        </div>
+        <div class="action-item">
+          <i class="fas fa-share"></i><span>30</span>
+        </div>
+      </div>
+      <span class="likes">100 Likes</span>
+    </div>
+  </div>
+  
+  <div class="video-container">
+    <!-- ส่วนหัวของวิดีโอ -->
+    <div class="video-header">
+      <div class="profile">
+        <img src="https://via.placeholder.com/40" alt="Profile">
+        <div>
+          <span class="username">@user1</span>
+          <span class="video-title">This is a video title</span>
+        </div>
+      </div>
+      <i class="fas fa-ellipsis-h"></i>
+    </div>
+
+    <!-- วิดีโอ -->
+    <div class="video-body">
+      <video id="video" src="https://www.w3schools.com/html/mov_bbb.mp4"></video>
+      <div class="play-pause-icon" id="playPauseIcon">
+        <i class="fas fa-play"></i>
+      </div>
+    </div>
+
+    <!-- ส่วนท้ายของวิดีโอ -->
+    <div class="video-footer">
+      <div class="actions">
+        <div class="action-item">
+          <i class="fas fa-heart"></i><span>120</span>
+        </div>
+        <div class="action-item">
+          <i class="fas fa-comment"></i><span>45</span>
+        </div>
+        <div class="action-item">
+          <i class="fas fa-share"></i><span>30</span>
+        </div>
+      </div>
+      <span class="likes">100 Likes</span>
+    </div>
+  </div>
+  
+  <div class="video-container">
+    <!-- ส่วนหัวของวิดีโอ -->
+    <div class="video-header">
+      <div class="profile">
+        <img src="https://via.placeholder.com/40" alt="Profile">
+        <div>
+          <span class="username">@user1</span>
+          <span class="video-title">This is a video title</span>
+        </div>
+      </div>
+      <i class="fas fa-ellipsis-h"></i>
+    </div>
+
+    <!-- วิดีโอ -->
+    <div class="video-body">
+      <video id="video" src="https://www.w3schools.com/html/mov_bbb.mp4"></video>
+      <div class="play-pause-icon" id="playPauseIcon">
+        <i class="fas fa-play"></i>
+      </div>
+    </div>
+
+    <!-- ส่วนท้ายของวิดีโอ -->
+    <div class="video-footer">
+      <div class="actions">
+        <div class="action-item">
+          <i class="fas fa-heart"></i><span>120</span>
+        </div>
+        <div class="action-item">
+          <i class="fas fa-comment"></i><span>45</span>
+        </div>
+        <div class="action-item">
+          <i class="fas fa-share"></i><span>30</span>
+        </div>
+      </div>
+      <span class="likes">100 Likes</span>
+    </div>
+  </div>
+  
+  <div class="video-container">
+    <!-- ส่วนหัวของวิดีโอ -->
+    <div class="video-header">
+      <div class="profile">
+        <img src="https://via.placeholder.com/40" alt="Profile">
+        <div>
+          <span class="username">@user1</span>
+          <span class="video-title">This is a video title</span>
+        </div>
+      </div>
+      <i class="fas fa-ellipsis-h"></i>
+    </div>
+
+    <!-- วิดีโอ -->
+    <div class="video-body">
+      <video id="video" src="https://www.w3schools.com/html/mov_bbb.mp4"></video>
+      <div class="play-pause-icon" id="playPauseIcon">
+        <i class="fas fa-play"></i>
+      </div>
+    </div>
+
+    <!-- ส่วนท้ายของวิดีโอ -->
+    <div class="video-footer">
+      <div class="actions">
+        <div class="action-item">
+          <i class="fas fa-heart"></i><span>120</span>
+        </div>
+        <div class="action-item">
+          <i class="fas fa-comment"></i><span>45</span>
+        </div>
+        <div class="action-item">
+          <i class="fas fa-share"></i><span>30</span>
+        </div>
+      </div>
+      <span class="likes">100 Likes</span>
+    </div>
+  </div>
+</main>
+
+  <footer>
+  <a href="honepage.html" class="menu-item active">
+    <div class="icon">
+      <i class="fa-solid fa-house"></i>
+    </div>
+    <span>หน้าแรก</span>
+  </a>
+  <a href="search.html" class="menu-item">
+    <div class="icon">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+    <span>ค้นหา</span>
+  </a>
+  <a href="#" class="add-button">
+    <i class="fa-solid fa-circle-plus"></i>
+  </a>
+  <a href="listpage.html" class="menu-item">
+    <div class="icon">
+      <i class="fa-solid fa-comments"></i>
+    </div>
+    <span>ข้อความ</span>
+  </a>
+  <a href="#" class="menu-item">
+    <div class="icon">
+      <i class="fa-solid fa-user"></i>
+    </div>
+    <span>โปรไฟล์</span>
+  </a>
+</footer>
+  
+  <script>
+  const videos = document.querySelectorAll('video');
+const playPauseIcons = document.querySelectorAll('.play-pause-icon');
+
+// วนลูปเพื่อเพิ่ม event listener ให้กับแต่ละวิดีโอ
+videos.forEach((video, index) => {
+  const playPauseIcon = playPauseIcons[index];
+  video.addEventListener('click', () => {
+    if (video.paused) {
+      video.play();
+      playPauseIcon.innerHTML = '<i class="fas fa-pause"></i>';
+    } else {
+      video.pause();
+      playPauseIcon.innerHTML = '<i class="fas fa-play"></i>';
+    }
+
+    // แสดงไอคอนชั่วคราว
+    playPauseIcon.classList.add('show');
+    setTimeout(() => {
+      playPauseIcon.classList.remove('show');
+    }, 1000);
+  });
+});
+  
+  
+  
+  </script>
+</body>
+</html>
